@@ -80,7 +80,7 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 //	char fullpath[1000]= system("pwd");
 //	puts (fullpath);
 	int len= strlen (path);
-	if (strcmp(&(path[len-4]), ".txt")==0){
+	if (strcmp(&(path[len-4]), ".txt")==0 || strcmp(&(path[len-4]), ".doc")==0 || strcmp(&(path[len-4]), ".pdf")==0){
 	
 //	system ("zenity --info --text=""coba""");
 	system("zenity --error --text=""Terjadi kesalahan!""");

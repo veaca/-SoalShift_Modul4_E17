@@ -92,14 +92,14 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	if (strcmp(&(path[len-4]), ".txt")==0 || strcmp(&(path[len-4]), ".doc")==0 || strcmp(&(path[len-4]), ".pdf")==0){
 //	system ("zenity --info --text=""coba""");
 	close (fd);
-
+	int ganti;
 	char awal[1000];
 	char akhir[1000];
         sprintf (awal, "%s", path);
 	sprintf (akhir, "%s.ditandai", path);
-
+	ganti = rename(awal, akhir);
+	if (ganti != 0) printf ("gagal");
 	system("zenity --error --text=\"Terjadi kesalahan! File berisi konten berbahaya.\"");
-	system("mv &awal &akhir");
 	}
 	else res=pread (fd, buf, size, offset);
 	if (res == -1)

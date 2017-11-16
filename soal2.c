@@ -101,21 +101,34 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 
 	int len= strlen (path);
 	if (strcmp(&(path[len-4]), ".txt")==0 || strcmp(&(path[len-4]), ".doc")==0 || strcmp(&(path[len-4]), ".pdf")==0){
-	close (fd);
 	int ganti;
 	char awal[1000];
 	char akhir[1000];
+	char mv[1000];
+	char mkdir[1000];
+	char chmod[1000];
         sprintf (awal, "%s", path);
 	sprintf (akhir, "%s.ditandai", path);
 	ganti = rename(awal, akhir);
 	if (ganti != 0) printf ("gagal");
 	system("zenity --error --text=\"Terjadi kesalahan! File berisi konten berbahaya.\"");
+	//char pindah[1000];
+	sprintf (mkdir, "mkdir /home/alvin/rahasia");
+        //system("mkdir rahasia");
+	system (mkdir);
+	sprintf (chmod, "chmod 000 %s.ditandai", path);
+        sprintf (mv, "mv %s.ditandai /home/alvin/rahasia", path);
+        //system ("mv rahasia");
+	system (chmod);
+	system (mv);
+        //char modi[1000];
+        //system("cd rahasia");
 	}
 	else res=pread (fd, buf, size, offset);
 	if (res == -1)
 		res = -errno;
 
-	return res;
+/*
 	char pindah[1000];
 	system("mkdir rahasia");
 	sprintf (pindah, "%s", path);
@@ -124,6 +137,8 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	system("cd rahasia");
 	sprintf (modi, "%s", path);
 	system ("chmod 000 &fpath");
+*/	close(fd);
+	return res;
 }
 
 static struct fuse_operations xmp_oper = {

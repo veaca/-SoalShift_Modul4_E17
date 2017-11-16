@@ -22,7 +22,7 @@
 #include <sys/xattr.h>
 #endif
 
-static const char *dirpath ="/home/alvin/Desktop";
+static const char *dirpath ="/home/alvin/simpanan";
 
 static int xmp_getattr(const char *path, struct stat *stbuf)
 {
@@ -314,6 +314,10 @@ static int xmp_read(const char *path, char *buf, size_t size, off_t offset,
 	if (fd == -1)
 		return -errno;
 
+	int len=strlen(path);
+	if (strcmp(&(path[len-5]), ".copy")==0 ){
+		system ("zenity --error --text=\"File yang anda buka adalah file hasil salinan. File tidak bisa diubah maupun disalin kembali!\"")
+	}
 	res = pread(fd, buf, size, offset);
 	if (res == -1)
 		res = -errno;
